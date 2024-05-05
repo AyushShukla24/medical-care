@@ -16,7 +16,6 @@ export const updatedoctor=async(req,res)=>{
 
 export const deletedoctor=async(req,res)=>{
     const id=req.params.id;
-    console.log("here")
 
     try{
         const deleteddoctor =await DoctorSchema.findByIdAndDelete(id)
@@ -30,10 +29,9 @@ export const deletedoctor=async(req,res)=>{
 export const getSingledoctor=async(req,res)=>{
     const id=req.params.id;
 
-    console.log(id)
-
     try{
         const doctor =await DoctorSchema.findById(id).populate('reviews').select('-password')
+        
         res.status(200).json({sucess:true,message:'doctor found',data:doctor})
     }
     catch(error){

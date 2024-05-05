@@ -3,7 +3,6 @@ import DoctorSchema from '../models/DoctorSchema.js'
 
 export const getAllReviews=async(req,res)=>{
     try{
-        console.log("lol")
         const reviews=await ReviewSchema.find({});
 
         res.status(200).json({success:true,message:'Successfull',data:reviews})
@@ -15,7 +14,7 @@ export const getAllReviews=async(req,res)=>{
 
 export const createReview=async(req,res)=>{
     if(!req.body.doctor) req.body.doctor=req.params.doctorId
-    if(!req.body.user) req.body.user=req.params.user
+    if(!req.body.user) req.body.user=req.userId
 
     const newReview=new ReviewSchema(req.body)
 
@@ -23,7 +22,7 @@ export const createReview=async(req,res)=>{
         const savedReview=await newReview.save();
 
         await DoctorSchema.findByIdAndUpdate(req.body.doctor,{
-            $push:{review:savedReview._id},
+            $push:{reviews:savedReview._id},
         })
 
         res.status(200).json({success:true,message:'Review submitted',data:savedReview})
@@ -32,3 +31,4 @@ export const createReview=async(req,res)=>{
         res.status(500).json({success:false,message:error.message})
     }
 }
+

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Review from "./ReviewSchema.js";
 
 const DoctorSchema = new mongoose.Schema({
   email: { 
@@ -50,7 +51,7 @@ const DoctorSchema = new mongoose.Schema({
   },
   reviews: [{ 
     type: mongoose.Types.ObjectId, 
-    ref: "Review" 
+    ref: 'Review' 
   }],
   averageRating: {
     type: Number,
