@@ -8,6 +8,7 @@ import userRoute from "./router/user.js";
 import doctorRoute from "./router/doctor.js";
 import reviewRoute from "./router/review.js";
 import bookingRoute from './router/booking.js';
+import contactRoute from './router/contact.js'
 
 
 dotenv.config()
@@ -24,6 +25,7 @@ app.use('/api/v1/users',userRoute)
 app.use('/api/v1/doctors',doctorRoute)
 app.use('/api/v1/reviews',reviewRoute)
 app.use('/api/v1/bookings',bookingRoute)
+app.use('/api/v1/contacts',contactRoute)
 
 app.get('/',(req,res)=>{
     res.send(`api is working`)

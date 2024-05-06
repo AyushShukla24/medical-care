@@ -2,6 +2,8 @@ import UserSchema from "../models/UserSchema.js";
 import BookingSchema from '../models/BookingSchema.js'
 import DoctorSchema from "../models/DoctorSchema.js"
 import bcrypt from 'bcrypt'
+import ContactUsSchema from "../models/ContactUsSchema.js";
+import ReviewSchema from "../models/ReviewSchema.js";
 
 export const updateUser=async(req,res)=>{
     const id=req.params.id;
@@ -24,10 +26,17 @@ export const updateUser=async(req,res)=>{
 
 export const deleteUser=async(req,res)=>{
     const id=req.params.id;
-    console.log(id)
-
+    
     try{
-        const deletedUser =await UserSchema.findByIdAndDelete(id)
+        const user=await UserSchema.findById(id)
+
+        if(!user){
+            res.status(404).json({sucess:false,message:'User not found'})
+        }
+
+        await ContactUsSchema.deleteMany({ user:user._id });
+        await ReviewSchema.deleteMany({ user: user._id });
+        await UserSchema.findByIdAndDelete(id);
         res.status(200).json({sucess:true,message:'Successfully deleted'})
     }
     catch(error){

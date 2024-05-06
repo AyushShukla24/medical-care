@@ -3,6 +3,7 @@ import DoctorSchema from "../models/DoctorSchema.js";
 import BookingSchema from "../models/BookingSchema.js";
 import Stripe from "stripe";
 import dotenv from 'dotenv'
+import sendmail from "../authentication/nodeMailer.js";
 dotenv.config()
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
@@ -36,7 +37,7 @@ export const getCheckoutSession = async (req, res) => {
         },
       ],
     });
-console.log(session)
+
     const booking = new BookingSchema({
       doctor: doctor._id,
       user: user._id,
@@ -45,6 +46,7 @@ console.log(session)
     });
 
     await booking.save();
+    sendmail(user.email);
 
     res.status(200).json({ success: true, message: "Successfully paid", session });
   } catch (error) {

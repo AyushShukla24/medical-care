@@ -36,6 +36,10 @@ const UserSchema = new mongoose.Schema({
     type: mongoose.Types.ObjectId, 
     ref: "Appointment" 
   }],
+  contactUsDetails:[{
+    type:mongoose.Types.ObjectId,
+    ref:"ContactUs"
+  }]
 });
 
 export default mongoose.model("User", UserSchema);
