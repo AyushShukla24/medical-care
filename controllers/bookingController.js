@@ -2,6 +2,8 @@ import UserSchema from "../models/UserSchema.js";
 import DoctorSchema from "../models/DoctorSchema.js";
 import BookingSchema from "../models/BookingSchema.js";
 import Stripe from "stripe";
+import dotenv from 'dotenv'
+dotenv.config()
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2020-08-27",
@@ -34,7 +36,7 @@ export const getCheckoutSession = async (req, res) => {
         },
       ],
     });
-
+console.log(session)
     const booking = new BookingSchema({
       doctor: doctor._id,
       user: user._id,

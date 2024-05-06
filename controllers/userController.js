@@ -1,12 +1,20 @@
 import UserSchema from "../models/UserSchema.js";
 import BookingSchema from '../models/BookingSchema.js'
 import DoctorSchema from "../models/DoctorSchema.js"
+import bcrypt from 'bcrypt'
 
 export const updateUser=async(req,res)=>{
     const id=req.params.id;
+    const {password,...rest}=req.body
+
+    if(password){
+        const salt=await bcrypt.genSalt(10)
+        const hashPassword=await bcrypt.hash(password,salt)
+        rest.password = hashPassword
+    }
 
     try{
-        const updatedUser =await UserSchema.findByIdAndUpdate(id,{$set:req.body},{new:true})
+        const updatedUser =await UserSchema.findByIdAndUpdate(id,{$set:rest},{new:true})
         res.status(200).json({sucess:true,message:'Successfully updated',data:updateUser})
     }
     catch(error){

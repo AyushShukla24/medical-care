@@ -4,6 +4,8 @@ import UserSchema from "../models/UserSchema.js";
 
 export const authenticate=async(req,res,next)=>{
     const authToken=req.headers.authorization
+
+    //console.log(authToken)
   
     if(!authToken || !authToken.startsWith("Bearer ")){
         return res.status(401).json({success:false,message:'No token, authorization denied'})
@@ -44,7 +46,7 @@ export const restrict=(roles)=>async(req,res,next)=>{
     if(doctor){
         user=doctor
     }
-
+    
     if(!roles.includes(user.role)){
         return res.status(401).json({success:false,message:"You're not authorized"})
     }
