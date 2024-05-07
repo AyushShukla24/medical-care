@@ -6,7 +6,7 @@ import Sendmail from "./nodeMailer.js";
 export const authenticate=async(req,res,next)=>{
     const authToken=req.headers.authorization
 
-    //console.log(authToken)
+    // console.log(authToken)
   
     if(!authToken || !authToken.startsWith("Bearer ")){
         return res.status(401).json({success:false,message:'No token, authorization denied'})
@@ -15,6 +15,7 @@ export const authenticate=async(req,res,next)=>{
     try{
         const token=authToken.split(" ")[1]
         const decoded=jwt.verify(token,process.env.JWT_SECRET_KEY)
+
 
         req.userId=decoded.id
         req.role=decoded.role
@@ -47,6 +48,7 @@ export const restrict=(roles)=>async(req,res,next)=>{
         user=doctor
     }
     
+    // console.log(user.role)
     if(!roles.includes(user.role)){
         return res.status(401).json({success:false,message:"You're not authorized"})
     }

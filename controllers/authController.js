@@ -70,7 +70,7 @@ export const login=async(req,res)=>{
             const patient=await UserSchema.findOne({email})
             const doctor=await DoctorSchema.findOne({email})
 
-            
+           
             if(patient){
                 user=patient
             }
@@ -88,6 +88,7 @@ export const login=async(req,res)=>{
             if(!isPasswordMatch){
                 return res.status(400).json({status:false,message:"Invaild credentials"})
             }
+
 
             const token=generateToken(user);
             

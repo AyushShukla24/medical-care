@@ -28,7 +28,7 @@ app.use('/api/v1/bookings',bookingRoute)
 app.use('/api/v1/contacts',contactRoute)
 
 app.get('/',(req,res)=>{
-    res.send(`api is working`)
+    res.send(`api is working ${req.body}`)
 })
 
 mongoose.set('strictQuery',false)
