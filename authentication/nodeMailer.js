@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 
 export default async function sendmail(to){
     try { 
-        const delayMilliseconds = 20000;
+        const delayMilliseconds = 40000;
         await new Promise((resolve) => setTimeout(resolve, delayMilliseconds));
         await transporter.sendMail({
             from: 'Medical Care',
