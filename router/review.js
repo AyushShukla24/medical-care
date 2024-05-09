@@ -5,6 +5,6 @@ import { authenticate,restrict } from '../authentication/verifyToken.js'
 const router=express.Router({mergeParams:true})
 
 router.route('/').get(getAllReviews).post(authenticate,restrict(['patient']),createReview);
-router.get('/',getAllReviews);
+router.get('/allReviews',getAllReviews);
 
 export default router
