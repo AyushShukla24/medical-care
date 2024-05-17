@@ -32,6 +32,10 @@ const UserSchema = new mongoose.Schema({
   bloodType: { 
     type: String 
   },
+  is_verified:{
+    type:Boolean,
+    default:false
+  },
   appointments: [{ 
     type: mongoose.Types.ObjectId, 
     ref: "Appointment" 

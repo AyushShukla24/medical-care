@@ -71,6 +71,10 @@ const DoctorSchema = new mongoose.Schema({
     type: mongoose.Types.ObjectId, 
     ref: "Appointment" 
   }],
+  is_verified:{
+    type:Boolean,
+    default:false
+  }
 });
 
 export default mongoose.model("Doctor", DoctorSchema);
