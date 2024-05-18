@@ -33,7 +33,7 @@ const sendVerifyMail=async(name,email,id)=>{
                 <div style="font-family: Arial, sans-serif; background-color: #f5f5f5; padding: 20px;">
                     <h2 style="color: #333;">Hi ${name},</h2>
                     <p style="color: #333;">Please click the button below to verify your email address:</p>
-                    <a href="http://localhost:5000/api/v1/auth/verify?id=${id}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Verify Email</a>
+                    <a href="${process.env.CLIENT_SITE_URL}/api/v1/auth/verify?id=${id}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Verify Email</a>
                 </div>
             `,
         });
@@ -227,9 +227,9 @@ export const login=async(req,res)=>{
             if(!user){
                 return res.status(404).json({message:'User not found'})
             }
-        
+            
             if(!user.is_verified){
-                return res.status(404).json({message:'Verify your mail'})
+                return res.status(500).json({message:'Verify your mail'})
             }
 
             const isPasswordMatch=await bcrypt.compare(password,user.password);
