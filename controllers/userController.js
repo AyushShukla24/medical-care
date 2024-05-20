@@ -36,6 +36,7 @@ export const deleteUser=async(req,res)=>{
 
         await ContactUsSchema.deleteMany({ user:user._id });
         await ReviewSchema.deleteMany({ user: user._id });
+        await BookingSchema.deleteMany({user:user._id})
         await UserSchema.findByIdAndDelete(id);
         res.status(200).json({sucess:true,message:'Successfully deleted'})
     }

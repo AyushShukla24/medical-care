@@ -100,14 +100,31 @@ export const register = async (req, res) => {
 
 export const verification = async (req, res) => {
   try {
-    const update = await UserSchema.updateOne(
-      { _id: req.query.id },
-      { $set: { is_verified: true } }
-    );
-    res.json({
-      success: true,
-      message: "Your email has been verified successfully",
-    });
+    const findUser=await UserSchema.findOne({_id:req.query.id})
+    const findDoctor=await DoctorSchema.findOne({_id:req.query.id})
+
+    if(findUser){
+      const update = await UserSchema.updateOne(
+        { _id: req.query.id },
+        { $set: { is_verified: true } }
+      );
+      res.json({
+        success: true,
+        message: "Your email has been verified successfully",
+      });
+    }
+
+    if(findDoctor){
+      const update = await DoctorSchema.updateOne(
+        { _id: req.query.id },
+        { $set: { is_verified: true } }
+      );
+      res.json({
+        success: true,
+        message: "Your email has been verified successfully",
+      });
+    }
+
   } catch (error) {
     res.status(500).json({ success: false, message: "Unable to verify email" });
   }
